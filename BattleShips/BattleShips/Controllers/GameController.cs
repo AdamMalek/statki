@@ -1,38 +1,36 @@
-﻿using System;
+﻿using BattleShips.DAL;
+using BattleShips.Infrastructure;
+using BattleShips.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Web.Http.Results;
 
 namespace BattleShips.Controllers
 {
     public class GameController : ApiController
     {
-        // GET api/<controller>
-        public IEnumerable<string> Get()
+        private readonly ViewModelBuilder _builder;
+        private readonly GameManager _gm;
+        private readonly IStoreProvider _store;
+
+        public GameController(GameManager gm, ViewModelBuilder builder, IStoreProvider cookie)
         {
-            return new string[] { "value1", "value2" };
+            _gm = gm;
+            _builder = builder;
+            _store = cookie;
         }
 
-        // GET api/<controller>/5
-        public string Get(int id)
+        public JsonResult<GameViewModel> Get(int id)
         {
-            return "value";
+            var vm = _builder.BuildViewModel(id, (string)_store.Get("password"));
+            return Json(vm);
         }
-
-        // POST api/<controller>
+        
         public void Post([FromBody]string value)
-        {
-        }
-
-        // PUT api/<controller>/5
-        public void Put(int id, [FromBody]string value)
-        {
-        }
-
-        // DELETE api/<controller>/5
-        public void Delete(int id)
         {
         }
     }

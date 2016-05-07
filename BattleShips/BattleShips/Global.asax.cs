@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
 using Autofac.Integration.Mvc;
+using Autofac.Integration.WebApi;
 using Autofac;
 using System.Reflection;
 using System.Configuration;
@@ -35,11 +36,15 @@ namespace BattleShips
                 builder.RegisterType<Infrastructure.SessionProvider>().As<Infrastructure.IStoreProvider>();
             }
 
+            //builder.RegisterType<Controllers.GameController>().As<Controllers.GameController>();
             builder.RegisterType<Infrastructure.ViewModelBuilder>().As<Infrastructure.ViewModelBuilder>();
             builder.RegisterType<DAL.GameManager>().As<DAL.GameManager>();
             builder.RegisterType<Infrastructure.ShipPositionGenerator>().As<Infrastructure.IShipProvider>();
+            
+            builder.RegisterApiControllers(Assembly.GetExecutingAssembly());
             var container = builder.Build();
             DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
+            GlobalConfiguration.Configuration.DependencyResolver = new AutofacWebApiDependencyResolver(container);
         }
     }
 }
