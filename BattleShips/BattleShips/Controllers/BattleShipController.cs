@@ -27,6 +27,7 @@ namespace BattleShips.Controllers
         {
             var vm = _builder.BuildViewModel(id,(string)_store.Get("password"));
             if (vm == null) return RedirectToAction("Index", "Home");
+            if (vm.end) _store.UnSet("password");
             return View(vm);
         }       
 
