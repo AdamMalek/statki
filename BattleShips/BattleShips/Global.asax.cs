@@ -9,6 +9,8 @@ using Autofac.Integration.Mvc;
 using Autofac;
 using System.Reflection;
 using System.Configuration;
+using System.Web.Http;
+using BattleShip;
 
 namespace BattleShips
 {
@@ -17,6 +19,7 @@ namespace BattleShips
         protected void Application_Start()
         {
             AreaRegistration.RegisterAllAreas();
+            GlobalConfiguration.Configure(WebApiConfig.Register);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
@@ -32,6 +35,7 @@ namespace BattleShips
                 builder.RegisterType<Infrastructure.SessionProvider>().As<Infrastructure.IStoreProvider>();
             }
 
+            builder.RegisterType<Infrastructure.ViewModelBuilder>().As<Infrastructure.ViewModelBuilder>();
             builder.RegisterType<DAL.GameManager>().As<DAL.GameManager>();
             builder.RegisterType<Infrastructure.ShipPositionGenerator>().As<Infrastructure.IShipProvider>();
             var container = builder.Build();
