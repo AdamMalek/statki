@@ -1,0 +1,36 @@
+﻿@model BattleShips.Models.StartGameViewModel
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="row" id="main">
+    <div class="col-md-offset-1 col-md-4 well">
+        @using (Html.BeginForm("NewGame", "Home"))
+        {
+            <div>Player 1 name:</div>
+            @Html.TextBoxFor(x => x.Player1Name, new { @class= "form-control" })
+
+            <div>Player 2 name:</div>
+            @Html.TextBoxFor(x => x.Player2Name, new { @class = "form-control" })
+
+            <div>Password for Your game:</div>
+            @Html.PasswordFor(x => x.Password, new { @class = "form-control" })
+            <br />
+            <input class="btn btn-info" type="submit" value="Start Game!" />
+        }
+    </div>
+    <div class="col-md-offset-1 col-md-4 well">
+        @using (Html.BeginForm("Index", "Home"))
+        {
+            <div>Game ID:</div>
+            @Html.TextBoxFor(x => x.GameId, new { @class = "form-control" })
+
+            <div>Password:</div>
+            @Html.PasswordFor(x => x.Password, new { @class = "form-control" })
+            <br />
+            @Html.ValidationMessageFor(x => x.Password);
+            <br />
+            <input class="btn btn-info" type="submit" value="Join Game!" />
+        }
+    </div>
+</div>

@@ -1,0 +1,76 @@
+﻿body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+table{
+    border: 1px solid black;
+}
+
+td{
+    width: 50px;
+    border: 1px solid black;
+    height: 50px;
+}
+.board{
+    background: #20e4ff;
+}
+
+.miss{
+    background: url("/Content/img/miss.png") no-repeat center;
+}
+
+.hit{
+    background: url("/Content/img/ship.png") no-repeat center;
+}
+
+#player1{
+    float: left;
+}
+
+#player2{
+    float: right;
+}
+
+#player1, #player2{
+    border: 1px solid black;
+}
+
+.player-move{
+    border: 1px black solid;
+    background: yellow;
+}
+
+.player-name{
+    text-align: center;
+}
+
+#status{
+    background: #fffaa4;
+    text-align: center;
+}
+
+#main{
+    margin-top: 30px;
+
+    min-height: 300px;
+}

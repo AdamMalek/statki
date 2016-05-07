@@ -1,0 +1,112 @@
+﻿@model BattleShips.Models.GameViewModel
+@{
+    ViewBag.Title = "Game";
+}
+
+@using (Html.BeginForm("Game", "BattleShip", FormMethod.Post, new { id = "game-form" }))
+{
+    <div class="row">
+        <div class="col-md-6">
+            <h2>Game #@Html.DisplayFor(x => x.GameId)</h2>
+
+            <h3>Players:</h3>
+            @foreach (var player in Model.Players)
+            {
+                <h4>@player.PlayerName</h4>
+            }
+
+            <h3>Turn: @Html.DisplayFor(x => x.PlayerTurn)</h3>
+            <br />
+        </div>
+        <div class="col-md-6" id="status">
+            <h2>@Model.Status</h2>
+        </div>
+    </div>
+    <div id="player1">
+        <h3 class="player-name">@Model.Players.First().PlayerName<text>'s Board</text></h3>
+        <table id="player1" class="board">
+            @for (int i = 0; i < Model.Board1.GetLength(0); i++)
+            {
+                <tr>
+                    @for (int j = 0; j < Model.Board1.GetLength(1); j++)
+                    {
+                        switch (Model.Board1[j, i])
+                        {
+                            case BattleShips.Models.GameViewModel.Field.Hit:
+                                {
+                                    <td class="hit" onclick="set(@Model.Players.First().PlayerId,@i,@j)"></td>
+                                    break;
+                                }
+                            case BattleShips.Models.GameViewModel.Field.Miss:
+                                {
+                                    <td class="miss" onclick="set(@Model.Players.First().PlayerId,@i,@j)"></td>
+                                    break;
+                                }
+                            case BattleShips.Models.GameViewModel.Field.Covered:
+                                {
+                                    <td class="covered" onclick="set(@Model.Players.First().PlayerId,@i,@j)"></td>
+                                    break;
+                                }
+                        }
+                    }
+                </tr>
+            }
+        </table>
+    </div>
+    <div id="player2">
+        <h3 class="player-name">@Model.Players.Last().PlayerName<text>'s Board</text></h3>
+        <table id="player2" class="board">
+            @for (int i = 0; i < Model.Board2.GetLength(0); i++)
+            {
+                <tr>
+                    @for (int j = 0; j < Model.Board2.GetLength(1); j++)
+                    {
+                        switch (Model.Board2[j, i])
+                        {
+                            case BattleShips.Models.GameViewModel.Field.Hit:
+                                {
+                                    <td class="hit" onclick="set(@Model.Players.Last().PlayerId,@i,@j)"></td>
+                                    break;
+                                }
+                            case BattleShips.Models.GameViewModel.Field.Miss:
+                                {
+                                    <td class="miss" onclick="set(@Model.Players.Last().PlayerId,@i,@j)"></td>
+                                    break;
+                                }
+                            case BattleShips.Models.GameViewModel.Field.Covered:
+                                {
+                                    <td class="covered" onclick="set(@Model.Players.Last().PlayerId,@i,@j)"></td>
+                                    break;
+                                }
+                        }
+                    }
+                </tr>
+            }
+        </table>
+        @Html.HiddenFor(x => x.Shot.GameId)
+        @Html.HiddenFor(x => x.end)
+        @Html.HiddenFor(x => x.Shot.PlayerId)
+        @Html.HiddenFor(x => x.Shot.Shot.X)
+        @Html.HiddenFor(x => x.Shot.Shot.Y)
+    </div>
+    <div style="clear:both"></div>
+}
+
+
+@section scripts{
+    <script>
+        onload = function () {
+            var id1 = "@(Model.Players.First().PlayerId == @Model.Shot.PlayerId)" == "True";
+
+            if (id1)
+                $("#player1").addClass("player-move");
+            else
+                $("#player2").addClass("player-move");
+        }
+        function set(k, i, j) {
+            $("#Shot_Shot_X").val(j);
+            $("#Shot_Shot_Y").val(i);
+            if (k == $("#Shot_PlayerId").val() && $("#end").val() == "False") $("#game-form").submit();
+        }
+    </script>
+}
