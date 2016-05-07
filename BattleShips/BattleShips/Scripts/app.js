@@ -7,9 +7,9 @@ var app = angular.module("battleships", [])
                      function DrawBoard(board, id, playerid) {
                          $("#player" + id).removeClass("player-move");
                          $("#player" + id + "board").html("");
+                         var html = "";
                          for (var i = 0; i < board.length; i++) {
-                             var html = "<tr id=\"r"+i + "p" + playerid+"\"></tr>";
-                             $("#player" + id + "board").append(html);
+                             html += "<tr>";
                              for (var j = 0; j < board[i].length; j++) {
                                  switch (board[j][i]) {
                                      case 1:
@@ -23,10 +23,12 @@ var app = angular.module("battleships", [])
                                          break;
                                  }
                                  field = "<td class=" + fieldclass + " ng-click=\"game.shot(" + playerid + "," + j + "," + i + ")\"></td>";
-                                 var temp = $compile(field)($scope);
-                                 angular.element(document.getElementById("r"+i + "p" + playerid)).append(temp);
+                                 html += field;
                              }
+                             html += "</tr>";
                          }
+                         var temp = $compile(html)($scope);
+                         angular.element(document.getElementById("player" + id + "board")).append(temp);
                          if (playerid == vm.playerTurnId)
                              $("#player" + id).addClass("player-move");
                      };

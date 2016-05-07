@@ -9,7 +9,14 @@ namespace BattleShips.Infrastructure
     {
         public object Get(string key)
         {
-            return HttpContext.Current.Session[key];
+            try
+            {
+                return HttpContext.Current.Session[key];
+            }
+            catch (Exception)
+            {
+                return null;
+            }
         }
 
         public void Set(string key, string value)
