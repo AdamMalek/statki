@@ -60,6 +60,7 @@ namespace BattleShips.Infrastructure
             {
                 GameId = id,
                 PlayerTurn = turn.PlayerName,
+                PlayerTurnId = turn.PlayerId,
                 Players = game.Players.ToArray(),
                 Shot = new SingleShotViewModel
                 {

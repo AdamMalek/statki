@@ -26,7 +26,7 @@ namespace BattleShips.Infrastructure
             if (cookie == null)
             {
                 cookie = new HttpCookie(key, value);
-                cookie.Expires = DateTime.Now.AddMinutes(15);
+                cookie.Expires = DateTime.Now.AddHours(2);
                 HttpContext.Current.Response.Cookies.Add(cookie);
             }
             else

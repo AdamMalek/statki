@@ -8,6 +8,7 @@ namespace BattleShips.Models
 {
     public class StartGameViewModel
     {
+        public bool Refresh { get; set; } = true;
         public string Player1Name { get; set; }
         public string Player2Name { get; set; }
         [RegularExpression(@"\d*")]

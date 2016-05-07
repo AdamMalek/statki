@@ -17,6 +17,9 @@
             @Html.PasswordFor(x => x.Password, new { @class = "form-control" })
             <br />
             <input class="btn btn-info" type="submit" value="Start Game!" />
+            <br />
+            @Html.LabelFor(x=> x.Refresh)
+            @Html.CheckBoxFor(x=> x.Refresh)
         }
     </div>
     <div class="col-md-offset-1 col-md-4 well">
@@ -31,6 +34,9 @@
             @Html.ValidationMessageFor(x => x.Password);
             <br />
             <input class="btn btn-info" type="submit" value="Join Game!" />
+            <br />
+            @Html.LabelFor(x => x.Refresh)
+            @Html.CheckBoxFor(x => x.Refresh)
         }
     </div>
 </div>

@@ -1,0 +1,44 @@
+﻿@model int
+@{
+    ViewBag.Title = "Game";
+}
+<div ng-app="battleships" ng-controller="gameController as game" ng->
+    <div class="row">
+        <div class="col-md-6">
+            <h2>Game #<span id="gameId">@Model</span></h2>
+
+            <h3>Players:</h3>
+            <h4 ng-bind="game.player1">Loading...</h4>
+            <h4 ng-bind="game.player2">Loading...</h4>
+
+            <h3>Turn: <span ng-bind="game.playerTurn">Loading...</span></h3>
+            <br />
+        </div>
+        <div class="col-md-6" id="status">
+            <h2 ng-bind="game.status">Loading...</h2>
+        </div>
+    </div>
+    <div id="player1">
+        <h3 class="player-name"><span ng-bind="game.player1">Loading...</span>'s Board</h3>
+        <table id="player1board" class="board">
+            <tr>
+                <td>Loading...</td>
+            </tr>
+        </table>
+    </div>
+    <div id="player2">
+        <h3 class="player-name"><span ng-bind="game.player2">Loading...</span>'s Board</h3>
+        <table id="player2board" class="board">
+            <tr>
+                <td>Loading...</td>
+            </tr>
+        </table>
+    </div>
+    <div style="clear:both"></div>
+</div>
+
+
+@section scripts{
+    <script src="~/Scripts/angular.js"></script>
+    <script src="~/Scripts/app.js"></script>
+}

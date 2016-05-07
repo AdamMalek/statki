@@ -11,6 +11,7 @@ namespace BattleShips.Models
         public bool end { get; set; } = false;
         public int GameId { get; set; }
         public string PlayerTurn { get; set; }
+        public int PlayerTurnId { get; set; }
         public Player[] Players { get; set; }
         public Field[,] Board1 { get; set; }
         public Field[,] Board2 { get; set; }

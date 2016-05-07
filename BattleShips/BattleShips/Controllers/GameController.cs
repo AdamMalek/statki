@@ -26,12 +26,24 @@ namespace BattleShips.Controllers
 
         public JsonResult<GameViewModel> Get(int id)
         {
-            var vm = _builder.BuildViewModel(id, (string)_store.Get("password"));
-            return Json(vm);
+            var pass = (string)_store.Get("password");
+            var vm = _builder.BuildViewModel(id, pass);
+            if (vm.end) _store.UnSet("password");
+            var ret = Json(vm);
+            return ret;
         }
-        
-        public void Post([FromBody]string value)
+
+        public JsonResult<GameViewModel> Post(SingleShotViewModel vm)
         {
+            var res = _gm.Shot(vm.GameId, vm.PlayerId, vm.Shot);
+            var vm2 = _builder.BuildViewModel(vm.GameId, (string)_store.Get("password"),vm);
+            if (res == GameManager.HitState.Error)
+            {
+                vm2.Status = "Couldn't shoot at given location!";
+            }
+            if (vm2.end) _store.UnSet("password");
+            var ret = Json(vm2);
+            return ret;
         }
     }
 }

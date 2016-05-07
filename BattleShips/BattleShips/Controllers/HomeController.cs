@@ -20,6 +20,10 @@ namespace BattleShips.Controllers
             _gm = gm;
             _cookie = cookie;
         }
+        public ActionResult Game(int id)
+        {
+            return View(id);
+        }
 
         public ActionResult Index()
         {
@@ -35,9 +39,16 @@ namespace BattleShips.Controllers
             _gm.ShipCounter = 5;
             var game = _gm.CreateGame(vm.Player1Name, vm.Player2Name, vm.Password);
             _cookie.Set("password", vm.Password ?? "");
-            return RedirectToAction("Game", "BattleShip", routeValues: new { id = game.Id });
+            if (vm.Refresh)
+            {
+                return RedirectToAction("Game", "BattleShip", routeValues: new { id = game.Id });
+            }
+            else
+            {
+                return RedirectToAction("Game", "Home", routeValues: new { id = game.Id });
+            }
         }
-
+        
         [HttpPost]
         public ActionResult Index(StartGameViewModel vm)
         {
@@ -65,7 +76,14 @@ namespace BattleShips.Controllers
                     else
                     {
                         _cookie.Set("password", vm.Password ?? "");
-                        return RedirectToAction("Game", "BattleShip", routeValues: new { id = game.Id });
+                        if (vm.Refresh)
+                        {
+                            return RedirectToAction("Game", "BattleShip", routeValues: new { id = game.Id });
+                        }
+                        else
+                        {
+                            return RedirectToAction("Game", "Home", routeValues: new { id = game.Id });
+                        }
                     }
                 }
             }
